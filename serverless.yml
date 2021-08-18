@@ -1,0 +1,31 @@
+service: clambda-av
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  ecr:
+    images:
+      clambdaAv:
+        path: ./
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+        - s3:PutObjectTagging
+      Resource: "arn:aws:s3:::clambda-av-files/*"
+
+functions:
+  virusScan:
+    image:
+      name: clambdaAv
+    memorySize: 2048
+    events:
+      - s3: 
+          bucket: clambda-av-files
+          event: s3:ObjectCreated:*
+    timeout: 120
+
+package:
+  exclude:
+    - node_modules/**
+    - coverage/**
