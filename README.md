@@ -1,7 +1,6 @@
-## AWS ClamAV Layer & a service using it to scan files
+## AWS ClamAV Lambda container & a service using it to scan files via S3 triggers
 ```
 git clone https://github.com/sutt0n/serverless-clamav-layer
-./build.sh
 sls deploy
 ```
 
